@@ -34,27 +34,27 @@ startReaching(2)
 This code has two options for different spatial arrangements.
 1. Items are displayed in the centre of the screen and the response boxes are eitherside.
  
-![alt text](https://github.com/jordandeakin/FlankerReachingTask/blob/main/img/Arrangement1.jpg?raw=true)
+![alt text](https://github.com/jordandeakin/FlankerReachingTask/blob/master/img/Arrangement1.jpg?raw=true)
 
 2. Items are displayed at the top of the screen and the response boxes are below.
 
-![alt text](https://github.com/jordandeakin/FlankerReachingTask/blob/main/img/Arrangement2.jpg?raw=true)
+![alt text](https://github.com/jordandeakin/FlankerReachingTask/blob/master/img/Arrangement2.jpg?raw=true)
 
 
 ## Trial Sequence
 A trial begins by asking the participant to move the cursor to the red start box.
 
-<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/main/img/StartBox.jpg" width="355" height="200" />
+<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/StartBox.jpg" width="355" height="200" />
 
 Once the cursor enters the start box, a countdown begins to prepare participants for the trial followed by a fixation cross.
 
-<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/main/img/Wait.jpg" width="355" height="200" />
+<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/Wait.jpg" width="355" height="200" />
           
 The flanker array is presented and participants respond by moving towards one of the response boxes.
 
-<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/main/img/Arrangement1.jpg" width="355" height="200" />
+<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/Arrangement1.jpg" width="355" height="200" />
 
 In practice trials, feedback is given.
 
-<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/main/img/Feedback.jpg" width="355" height="200" />
+<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/Feedback.jpg" width="355" height="200" />
 
