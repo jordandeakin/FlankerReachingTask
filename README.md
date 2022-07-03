@@ -1,6 +1,6 @@
 # RDK Reaching
 
-This code runs a mouse tracking/stylus flanker task using random dot kinematograms (RDKs). Participants must determine whether the coherent motion in the center RDK is leftwards or rightwards moving. To respond, participants move the cursor towards one of two response boxes. This task manipulates motion coherence randomly across trials. 
+This code runs a mouse tracking/stylus flanker task using random dot kinematograms (RDKs). Participants must determine whether the coherent motion in the center RDK is leftwards or rightwards moving. To respond, participants move the cursor towards one of two response boxes. This task manipulates motion coherence randomly across trials. The experiment can be quit by pressing q during a trial.
 
 
 ## Output
