@@ -166,6 +166,9 @@ for iTrial = 1:height(trialMat)
         
         %  responseMade
         
+        xx = Screen('GetImage',w);
+        imwrite(xx,'Arrangement2.png');
+        
     end
     
     % Save RT and stylus path.
