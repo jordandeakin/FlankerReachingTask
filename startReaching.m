@@ -1,5 +1,5 @@
 function startReaching(spatialArrangement)
-
+KbName('UnifyKeyNames')
 [data, w, filename, display, Xrect, Yrect] = initialiseReaching();
 
 % Set Coherence Levels
