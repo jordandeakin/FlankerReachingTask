@@ -46,7 +46,7 @@ A trial begins by asking the participant to move the cursor to the red start box
 
 <img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/StartBox.jpg" width="355" height="200" />
 
-Once the cursor enters the start box, a countdown begins to prepare participants for the trial followed by a fixation cross.
+Once the cursor enters the start box, they are prompted to click to start the trial. Once clicked, a fixation cross is displayed for 500ms.
 
 <img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/Wait.jpg" width="355" height="200" />
           
