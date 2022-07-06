@@ -24,53 +24,47 @@ for iTrial = 1:height(trialMat)
             Screen('FrameRect', w, [255 0 0]*.25, startBox);
             Screen('Flip',w);
             
-            % Check if the mouse is in start box
+            
             [mouseX,mouseY] = GetMouse(w);
+            
+            % Check if the mouse is in start box
             inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
             
             
-            % If they are in the box, start the countdown.
-            count = 3;
+            
+            % If they are in the box, show prompt.
             while inBox
+                  [mouseX,mouseY,buttons] = GetMouse(w);
+                Screen('DrawDots', w, [mouseX;mouseY], 10,[255 0 0]);
+                DrawFormattedText2('Click the start box to start the trial.','win',w,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
+                Screen('FrameRect', w, [255 165 0]*.25, startBox); 
+                Screen('Flip',w);
                 
-                % Start CountDown
-                if count ~= 0
-                    %Screen('DrawDots', w, [mouseX;mouseY], 10,[255 0 0]);
-                    DrawFormattedText2(sprintf('Wait\n %d',count),'win',w,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
-                    Screen('FrameRect', w, [255 165 0]*.25, startBox);
-                    Screen('Flip',w);
-                    WaitSecs(1);
-                    
-                    
-                    
-                else
-                    % If count down has ended, show fixation cross.
-                    DrawFormattedText2('+','win',w,'sx','center','sy',rdkCent,'xalign','center');
-                    %Screen('FrameRect', w, [255 165 0], startBox);
-                    Screen('Flip',w);
-                    WaitSecs(.5);
-                end
+              
+              
+                % Check if the mouse is in start box
+                inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
                 
                 
-                count = count - 1;
-                [mouseX,mouseY] = GetMouse(w);
-                inBox = mouseX >= startBox(1) & mouseX <= startBox(3) & mouseY >= startBox(2) & mouseY <= startBox(4);
-                
-                
-                
-                % If they have stayed inside the box for 3 seconds, start
-                % the trial.
-                if count == -1 && inBox
+                if buttons(1)
                     startTrial = true;
-                    [mouseX,mouseY] = GetMouse(w);
-                    inBox = mouseX >= startBox(1) & mouseX <= startBox(3) & mouseY >= startBox(2) & mouseY <= startBox(4);
-                    
                     break
                 end
             end
+            
+            
+            
         end
+        
+        
     end
     
+    
+    
+    % Display Fixation
+    DrawFormattedText2('+','win',w,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
+    Screen('Flip',w);
+    WaitSecs(.5)
     
     
     % Create RDK objects.
@@ -86,7 +80,7 @@ for iTrial = 1:height(trialMat)
     Screen('DrawDots', w, [target.dotX;target.dotY],2,[255 255 255],[],1);
     Screen('DrawDots', w, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
     Screen('DrawDots', w, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-    %  Screen('FrameRect', w, [40 40 40], startBox);
+    %Screen('FrameRect', w, [40 40 40], startBox);
     Screen('FrameRect', w, [40 40 40], leftBox);
     Screen('FrameRect', w, [40 40 40], rightBox);
     Screen('DrawDots', w, [mouseX; mouseY],5,[40 40 40]);
@@ -102,8 +96,7 @@ for iTrial = 1:height(trialMat)
         % Check for quits.
         if keyIsDown && keyCode(KbName('q'))
             sca
-            error('quit')
-            
+            error('quit')      
         end
         
         
@@ -127,7 +120,7 @@ for iTrial = 1:height(trialMat)
         Screen('DrawDots', w, [target.dotX;target.dotY],2,[255 255 255],[],1);
         Screen('DrawDots', w, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
         Screen('DrawDots', w, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-        %  Screen('FrameRect', w, [40 40 40], startBox);
+      %  Screen('FrameRect', w, [40 40 40], startBox);
         Screen('FrameRect', w, [40 40 40], leftBox);
         Screen('FrameRect', w, [40 40 40], rightBox);
         Screen('DrawDots', w, [mouseX(iFrame);mouseY(iFrame)], 10,[255 0 0]);
@@ -161,8 +154,6 @@ for iTrial = 1:height(trialMat)
         end
         
         %  responseMade
-        
-        
         
     end
     
@@ -229,4 +220,3 @@ trialMat.FlankerDir = recodedFlankDir';
         end
     end
 end
-
