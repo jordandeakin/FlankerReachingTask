@@ -23,12 +23,10 @@ for iTrial = 1:height(trialMat)
             DrawFormattedText2('Move the stylus into the start box.','win',w,'sx','center','sy',rdkCent,'xalign','center');
             Screen('FrameRect', w, [255 0 0]*.25, startBox);
             Screen('Flip',w);
-       
-    
-              % Check if the mouse is in start box
-            [mouseX,mouseY] = GetMouse(w);
-              inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
             
+            % Check if the mouse is in start box
+            [mouseX,mouseY] = GetMouse(w);
+            inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
             
             
             % If they are in the box, start the countdown.
@@ -42,6 +40,8 @@ for iTrial = 1:height(trialMat)
                     Screen('FrameRect', w, [255 165 0]*.25, startBox);
                     Screen('Flip',w);
                     WaitSecs(1);
+                    
+                    
                     
                 else
                     % If count down has ended, show fixation cross.
@@ -57,6 +57,7 @@ for iTrial = 1:height(trialMat)
                 inBox = mouseX >= startBox(1) & mouseX <= startBox(3) & mouseY >= startBox(2) & mouseY <= startBox(4);
                 
                 
+                
                 % If they have stayed inside the box for 3 seconds, start
                 % the trial.
                 if count == -1 && inBox
@@ -67,12 +68,7 @@ for iTrial = 1:height(trialMat)
                     break
                 end
             end
-            
-            
-            
         end
-        
-        
     end
     
     
@@ -90,7 +86,7 @@ for iTrial = 1:height(trialMat)
     Screen('DrawDots', w, [target.dotX;target.dotY],2,[255 255 255],[],1);
     Screen('DrawDots', w, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
     Screen('DrawDots', w, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-  %  Screen('FrameRect', w, [40 40 40], startBox);
+    %  Screen('FrameRect', w, [40 40 40], startBox);
     Screen('FrameRect', w, [40 40 40], leftBox);
     Screen('FrameRect', w, [40 40 40], rightBox);
     Screen('DrawDots', w, [mouseX; mouseY],5,[40 40 40]);
@@ -131,13 +127,13 @@ for iTrial = 1:height(trialMat)
         Screen('DrawDots', w, [target.dotX;target.dotY],2,[255 255 255],[],1);
         Screen('DrawDots', w, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
         Screen('DrawDots', w, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-      %  Screen('FrameRect', w, [40 40 40], startBox);
+        %  Screen('FrameRect', w, [40 40 40], startBox);
         Screen('FrameRect', w, [40 40 40], leftBox);
         Screen('FrameRect', w, [40 40 40], rightBox);
         Screen('DrawDots', w, [mouseX(iFrame);mouseY(iFrame)], 10,[255 0 0]);
         
         Screen('Flip',w);
-
+        
         
         % If response made in left box, code accuracy.
         if mouseX(iFrame) > leftBox(1) && mouseX(iFrame) < leftBox(3) && mouseY(iFrame) > leftBox(2) && mouseY(iFrame) < leftBox(4)
@@ -166,8 +162,7 @@ for iTrial = 1:height(trialMat)
         
         %  responseMade
         
-        xx = Screen('GetImage',w);
-        imwrite(xx,'Arrangement2.png');
+        
         
     end
     
@@ -182,7 +177,7 @@ for iTrial = 1:height(trialMat)
     if trialMat.Practice(iTrial) == 1
         DrawFormattedText2(showFeedback(trialMat.Acc(iTrial)),'win',w,'sx','center','sy','center','xalign','center');
         Screen('Flip',w);
-         WaitSecs(.5);
+        WaitSecs(.5);
     end
     
     
