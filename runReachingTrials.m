@@ -21,14 +21,13 @@ for iTrial = 1:height(trialMat)
             [mouseX,mouseY] = GetMouse(w);
             Screen('DrawDots', w, [mouseX;mouseY], 10,[255 0 0]);
             DrawFormattedText2('Move the stylus into the start box.','win',w,'sx','center','sy',rdkCent,'xalign','center');
-            Screen('FrameRect', w, [255 0 0], startBox);
+            Screen('FrameRect', w, [255 0 0]*.25, startBox);
             Screen('Flip',w);
        
     
+              % Check if the mouse is in start box
             [mouseX,mouseY] = GetMouse(w);
-            
-            % Check if the mouse is in start box
-            inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
+              inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
             
             
             
@@ -40,14 +39,14 @@ for iTrial = 1:height(trialMat)
                 if count ~= 0
                     %Screen('DrawDots', w, [mouseX;mouseY], 10,[255 0 0]);
                     DrawFormattedText2(sprintf('Wait\n %d',count),'win',w,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
-                    Screen('FillRect', w, [255 165 0], startBox);
+                    Screen('FrameRect', w, [255 165 0]*.25, startBox);
                     Screen('Flip',w);
                     WaitSecs(1);
                     
                 else
                     % If count down has ended, show fixation cross.
                     DrawFormattedText2('+','win',w,'sx','center','sy',rdkCent,'xalign','center');
-                    Screen('FillRect', w, [255 165 0], startBox);
+                    %Screen('FrameRect', w, [255 165 0], startBox);
                     Screen('Flip',w);
                     WaitSecs(.5);
                 end
@@ -91,10 +90,10 @@ for iTrial = 1:height(trialMat)
     Screen('DrawDots', w, [target.dotX;target.dotY],2,[255 255 255],[],1);
     Screen('DrawDots', w, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
     Screen('DrawDots', w, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-    Screen('FrameRect', w, [150 150 150], startBox);
-    Screen('FrameRect', w, [150 150 150], leftBox);
-    Screen('FrameRect', w, [150 150 150], rightBox);
-    Screen('DrawDots', w, [mouseX; mouseY],5,[150 150 150]);
+  %  Screen('FrameRect', w, [40 40 40], startBox);
+    Screen('FrameRect', w, [40 40 40], leftBox);
+    Screen('FrameRect', w, [40 40 40], rightBox);
+    Screen('DrawDots', w, [mouseX; mouseY],5,[40 40 40]);
     
     stimulusOnset = Screen('Flip',w);
     
@@ -132,9 +131,9 @@ for iTrial = 1:height(trialMat)
         Screen('DrawDots', w, [target.dotX;target.dotY],2,[255 255 255],[],1);
         Screen('DrawDots', w, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
         Screen('DrawDots', w, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-        Screen('FrameRect', w, [150 150 150], startBox);
-        Screen('FrameRect', w, [150 150 150], leftBox);
-        Screen('FrameRect', w, [150 150 150], rightBox);
+      %  Screen('FrameRect', w, [40 40 40], startBox);
+        Screen('FrameRect', w, [40 40 40], leftBox);
+        Screen('FrameRect', w, [40 40 40], rightBox);
         Screen('DrawDots', w, [mouseX(iFrame);mouseY(iFrame)], 10,[255 0 0]);
         
         Screen('Flip',w);
