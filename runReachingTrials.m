@@ -39,8 +39,6 @@ for iTrial = 1:height(trialMat)
                 DrawFormattedText2('Click the start box to start the trial.','win',w,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
                 Screen('FrameRect', w, [255 165 0]*.25, startBox); 
                 Screen('Flip',w);
-                xx= Screen('GetImage',w);
-                imwrite(xx,'Wait.jpg');
               
               
                 % Check if the mouse is in start box
