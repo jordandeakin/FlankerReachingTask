@@ -30,7 +30,7 @@ end
 ReachingInstructions(w,leftBox,rightBox);
 
 data.trialSequence = [];
-trialsPerCondition = 8;
+trialsPerCondition = 32;
 
 % Runs four blocks.
 for iBlock = 1:4
