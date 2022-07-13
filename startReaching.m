@@ -1,4 +1,5 @@
 function startReaching(spatialArrangement)
+
 KbName('UnifyKeyNames');
 
 [data, w, filename, display] = initialiseReaching();
@@ -35,11 +36,13 @@ trialsPerCondition = 8;
 for iBlock = 1:4
     
     if iBlock == 1
-        DrawFormattedText2('We will first do some practice trials.\n\n <b><color=00ffff>Press any key to start!<b><color>','win',w.ptr,'sx','center','sy','center','xalign','center','yalign','center','xlayout','center');%'baseColor',[255 255 255]);
+        DrawFormattedText(w.ptr,'We will first do some practice trials.\n\n','center','center',[255 255 255],100,[],[],2);
+        DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
         KbStrokeWait;
     else
-        DrawFormattedText2('We will do some more practice trials.\n\n <b><color=00ffff>Press any key to start!<b><color>','win',w.ptr,'sx','center','sy','center','xalign','center','yalign','center','xlayout','center');%'baseColor',[255 255 255]);
+        DrawFormattedText(w.ptr,'We will do some more practice trials.\n\n','center','center',[255 255 255],100,[],[],2);%'baseColor',[255 255 255]);
+         DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
         KbStrokeWait;
     end
@@ -48,9 +51,12 @@ for iBlock = 1:4
     % The practice trials consist of one practice trial for each
     % combination of the factors.
     practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/4);
-    practiceMatrix = practiceMatrix(1:16,:);
-    practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
-    DrawFormattedText2('That is the end of the practice trials.\n\n<color=00ffff> <b>Press any key to start!<b><color>','win',w.ptr,'sx','center','sy','center','xalign','center','yalign','center','xlayout','center');%'baseColor',[255 255 255]);
+    practiceMatrix = practiceMatrix(1:2,:);
+       practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
+    
+       DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
+    DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
+       
     Screen('Flip',w.ptr);
     KbStrokeWait;
     
@@ -69,6 +75,7 @@ for iBlock = 1:4
     end
     
 end
+
 
 
 sca

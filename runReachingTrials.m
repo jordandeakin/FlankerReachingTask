@@ -4,7 +4,6 @@ function trialMat = runReachingTrials(w,display,trialMat,startBox,leftBox,rightB
 for iTrial = 1:height(trialMat)
 
     responseMade = false;
-
     % Trial Parameters
     targetDir = trialMat.TargetDir(iTrial);
     flankerDir = trialMat.FlankerDir(iTrial);
@@ -20,8 +19,8 @@ for iTrial = 1:height(trialMat)
         while ~inBox
 
             [mouseX,mouseY] = GetMouse(w.ptr);
-            Screen('DrawDots', w.ptr, [mouseX;mouseY], 10,[255 0 0]);
-            DrawFormattedText2('Move the stylus into the start box.','win',w.ptr,'sx','center','sy',rdkCent,'xalign','center');
+            Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
+            DrawFormattedText(w.ptr,'Move the stylus into the start box.','center',rdkCent,[255 255 255],100,[],[],2);
             Screen('FrameRect', w.ptr, [255 0 0]*.25, startBox);
             Screen('Flip',w.ptr);
             [mouseX,mouseY] = GetMouse(w.ptr);
@@ -34,8 +33,9 @@ for iTrial = 1:height(trialMat)
                 inBox = mouseX > startBox(1) & mouseX < startBox(3) & mouseY > startBox(2) & mouseY < startBox(4);
 
                 [mouseX,mouseY,buttons] = GetMouse(w.ptr);
-                Screen('DrawDots', w.ptr, [mouseX;mouseY], 10,[255 0 0]);
-                DrawFormattedText2('Click the start box to start the trial.','win',w.ptr,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
+
+                Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
+                DrawFormattedText(w.ptr,'Click the start box to start the trial.','center',rdkCent,[255 255 255],100,[],[],2);
                 Screen('FrameRect', w.ptr, [255 165 0]*.25, startBox);
                 Screen('Flip',w.ptr);
 
@@ -44,7 +44,7 @@ for iTrial = 1:height(trialMat)
                 if any(buttons)
                     fixOnset = GetSecs();
                     while inBox && (GetSecs - fixOnset) <= .5
-                        DrawFormattedText2('+','win',w.ptr,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
+                        DrawFormattedText(w.ptr,'+','center',rdkCent,[255 255 255],100,[],[],2);
                         Screen('FrameRect', w.ptr, [255 165 0]*.25, startBox);
                         Screen('Flip',w.ptr);
                         [mouseX,mouseY,~] = GetMouse(w.ptr);
@@ -88,7 +88,7 @@ for iTrial = 1:height(trialMat)
     %Screen('FrameRect', w, [40 40 40], startBox);
     Screen('FrameRect', w.ptr, [40 40 40], leftBox);
     Screen('FrameRect', w.ptr, [40 40 40], rightBox);
-    Screen('DrawDots', w.ptr, [mouseX; mouseY],5,[40 40 40]);
+    Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
 
     stimulusOnset = Screen('Flip',w.ptr);
     vbl = stimulusOnset;
@@ -128,14 +128,14 @@ for iTrial = 1:height(trialMat)
         %  Screen('FrameRect', w, [40 40 40], startBox);
         Screen('FrameRect', w.ptr, [40 40 40], leftBox);
         Screen('FrameRect', w.ptr, [40 40 40], rightBox);
-        Screen('DrawDots', w.ptr, [mouseX(iFrame);mouseY(iFrame)], 10,[255 0 0]);
+        Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX(iFrame)-5,mouseY(iFrame)-5,mouseX(iFrame)+5,mouseY(iFrame)+5]);
 
         [vbl] =  Screen('Flip',w.ptr,vbl + 0.5 * w.ifi);
         currTime = GetSecs();
 
 
-        if currTime - stimulusOnset >= 1
-            DrawFormattedText2('Too Slow!','win',w.ptr,'sx','center','sy',rdkCent,'xalign','center','xlayout','center');
+        if currTime - stimulusOnset > 1.5
+            DrawFormattedText(w.ptr,'Too Slow!','center',rdkCent,[255 255 255],100,[],[],2)
             Screen('Flip',w.ptr)
             WaitSecs(.5)
             break
@@ -187,10 +187,10 @@ for iTrial = 1:height(trialMat)
 
     % Show feedback in practice trials.
     if trialMat.Practice(iTrial) == 1
-       showFeedback(trialMat.Acc(iTrial));
+        showFeedback(trialMat.Acc(iTrial));
         % DrawFormattedText2(showFeedback(trialMat.Acc(iTrial)),'win',w.ptr,'sx','center','sy','center','xalign','center');
-       % Screen('Flip',w.ptr);
-       % WaitSecs(.5);
+        % Screen('Flip',w.ptr);
+        % WaitSecs(.5);
     end
 
 
@@ -220,11 +220,12 @@ trialMat.FlankerDir = recodedFlankDir';
 
     function breakScreen(w)
 
-        DrawFormattedText2('Time for a break!\n\nThis break lasts 60 seconds and cannot be skipped!','win',w.ptr,'sx','center','sy','center','xalign','center','xlayout','center');
+        DrawFormattedText(w.ptr,'Time for a break!\n\nThis break lasts 60 seconds and cannot be skipped!','center','center',[255 255 255],100,[],[],2);
         Screen('Flip',w.ptr);
         WaitSecs(60);
 
-        DrawFormattedText2('Ready to continue?\n\n <b><color=00ffff><b> Press any key to start!<b>','win',w.ptr,'sx','center','sy','center','xalign','center','xlayout','center');
+        DrawFormattedText(w.ptr,'Ready to continue?\n\n','center','center',[255 255 255],100,[],[],2)
+        DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],[],[],2);
         Screen('Flip',w.ptr);
         KbStrokeWait;
 
@@ -236,18 +237,15 @@ trialMat.FlankerDir = recodedFlankDir';
 
     function showFeedback(acc)
         if acc == 0
-          beep2
-
-        else
-          %  out = '<b><color=00FF00>Correct!';
+            beep2
         end
     end
 
-function beep2
-% Play a sine wave
-res = 22050;
-len = 0.5 * res;
-hz = 220;
-sound( sin( hz*(2*pi*(0:len)/res) ), res);
-end
+    function beep2
+        % Play a sine wave
+        res = 22050;
+        len = 0.5 * res;
+        hz = 220;
+        sound( sin( hz*(2*pi*(0:len)/res) ), res);
+    end
 end

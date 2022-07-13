@@ -54,7 +54,4 @@ The flanker array is presented and participants respond by moving towards one of
 
 <img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/Arrangement1.jpg" width="355" height="200" />
 
-In practice trials, feedback is given.
-
-<img src="https://github.com/jordandeakin/FlankerReachingTask/raw/master/img/Feedback.jpg" width="355" height="200" />
-
+In practice trials, auditory feedback is given. 
