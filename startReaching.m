@@ -51,7 +51,7 @@ for iBlock = 1:4
     % The practice trials consist of one practice trial for each
     % combination of the factors.
     practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/4);
-    practiceMatrix = practiceMatrix(1:2,:);
+   % practiceMatrix = practiceMatrix(1:2,:);
        practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
     
        DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
