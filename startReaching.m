@@ -18,10 +18,10 @@ startBox = [w.Xrect-50, w.Yrect+400, w.Xrect+50, w.Yrect+500];
 leftBox = [w.Xrect-700, w.Yrect-50, w.Xrect-600, w.Yrect+50];
 rightBox = [w.Xrect+600, w.Yrect-50, w.Xrect+700, w.Yrect+50];
 rdkCent = w.Yrect;
-else
+elseif spatialArrangement == 2
 startBox = [w.Xrect-50, w.Yrect+400, w.Xrect+50, w.Yrect+500];
-leftBox = [w.Xrect-700, w.Yrect-200, w.Xrect-600, w.Yrect-100];
-rightBox = [w.Xrect+600, w.Yrect-200, w.Xrect+700, w.Yrect-100];
+leftBox = [w.Xrect-700, w.Yrect-450, w.Xrect-600, w.Yrect-350];
+rightBox = [w.Xrect+600, w.Yrect-450, w.Xrect+700, w.Yrect-350];
 rdkCent = w.Yrect - 400;
 end
     
