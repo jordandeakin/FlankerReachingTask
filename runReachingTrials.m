@@ -93,6 +93,9 @@ for iTrial = 1:height(trialMat)
     stimulusOnset = Screen('Flip',w.ptr);
     vbl = stimulusOnset;
 
+mouseXF = [];
+mouseYF = [];
+timestamps = [];
 
     while ~responseMade
         iFrame = iFrame + 1;
@@ -105,7 +108,8 @@ for iTrial = 1:height(trialMat)
         end
 
 
-        [mouseX(iFrame),mouseY(iFrame)] = GetMouse(w.ptr);
+        [mouseXF(iFrame),mouseYF(iFrame)] = GetMouse(w.ptr);
+        timestamps(iFrame) = GetSecs;
 
 
         % Animation
@@ -128,7 +132,7 @@ for iTrial = 1:height(trialMat)
         %  Screen('FrameRect', w, [80 80 80], startBox);
         Screen('FrameRect', w.ptr, [80 80 80], leftBox);
         Screen('FrameRect', w.ptr, [80 80 80], rightBox);
-        Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX(iFrame)-5,mouseY(iFrame)-5,mouseX(iFrame)+5,mouseY(iFrame)+5]);
+        Screen('FillOval', w.ptr,[255 0 0]*25, [mouseXF(iFrame)-5,mouseYF(iFrame)-5,mouseXF(iFrame)+5,mouseYF(iFrame)+5]);
 
         [vbl] =  Screen('Flip',w.ptr,vbl + 0.5 * w.ifi);
         currTime = GetSecs();
@@ -150,7 +154,7 @@ for iTrial = 1:height(trialMat)
         end
 
         % If response made in left box, code accuracy.
-        if mouseX(iFrame) > leftBox(1) && mouseX(iFrame) < leftBox(3) && mouseY(iFrame) > leftBox(2) && mouseY(iFrame) < leftBox(4)
+        if mouseXF(iFrame) > leftBox(1) && mouseXF(iFrame) < leftBox(3) && mouseYF(iFrame) > leftBox(2) && mouseYF(iFrame) < leftBox(4)
             timeOfResponse = GetSecs;
             responseMade = true;
             if targetDir > 0
@@ -163,7 +167,7 @@ for iTrial = 1:height(trialMat)
 
 
         % If response made in right box, code accuracy.
-        if mouseX(iFrame) > rightBox(1) && mouseX(iFrame) < rightBox(3) && mouseY(iFrame) > rightBox(2) && mouseY(iFrame) < rightBox(4)
+        if mouseXF(iFrame) > rightBox(1) && mouseXF(iFrame) < rightBox(3) && mouseYF(iFrame) > rightBox(2) && mouseYF(iFrame) < rightBox(4)
             timeOfResponse = GetSecs;
             responseMade = true;
             if targetDir < 0
@@ -180,8 +184,9 @@ for iTrial = 1:height(trialMat)
 
     end
 
-    mousePath.X = mouseX;
-    mousePath.Y = mouseY;
+    mousePath.X = mouseXF;
+    mousePath.Y = mouseYF;
+    mousePath.time = timestamps;
 
 
 
@@ -204,6 +209,7 @@ for iTrial = 1:height(trialMat)
     % Add stylus path to trial matrix.
     trialMat.MousePathX(iTrial) = {mousePath.X};
     trialMat.MousePathY(iTrial) = {mousePath.Y};
+      trialMat.timestamps(iTrial) = {mousePath.time};
 end
 
 
