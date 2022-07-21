@@ -19,7 +19,7 @@ for iTrial = 1:height(trialMat)
         while ~inBox
 
             [mouseX,mouseY] = GetMouse(w.ptr);
-            Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
+            Screen('FillOval', w.ptr,[255 0 0], [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
             DrawFormattedText(w.ptr,'Move the stylus into the start box.','center',rdkCent,[255 255 255],100,[],[],2);
             Screen('FrameRect', w.ptr, [255 0 0]*.75, startBox);
             Screen('Flip',w.ptr);
@@ -88,9 +88,12 @@ for iTrial = 1:height(trialMat)
     %Screen('FrameRect', w, [80 80 80], startBox);
     Screen('FrameRect', w.ptr, [80 80 80], leftBox);
     Screen('FrameRect', w.ptr, [80 80 80], rightBox);
-    Screen('FillOval', w.ptr,[255 0 0]*25, [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
+    Screen('FillOval', w.ptr,[255 0 0], [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
 
     stimulusOnset = Screen('Flip',w.ptr);
+    trialMat.onset(iTrial) = stimulusOnset;
+    [ox,oy] = GetMouse(w.ptr);
+    trialMat.onsetPos(iTrial,:) = [ox,oy];
     vbl = stimulusOnset;
 
 mouseXF = [];
@@ -231,7 +234,7 @@ trialMat.FlankerDir = recodedFlankDir';
         WaitSecs(60);
 
         DrawFormattedText(w.ptr,'Ready to continue?\n\n','center','center',[255 255 255],100,[],[],2)
-        DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],[],[],2);
+        DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);
         Screen('Flip',w.ptr);
         KbStrokeWait;
 
