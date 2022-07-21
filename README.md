@@ -20,7 +20,7 @@ Saves a .mat file to the current folder. This file contains a data struct with f
 <strong> MousePathX </strong> - x coordinates of cursor.<br>
 <strong> MousePathY </strong> - y coordinates of cursor.<br>
 <strong> Timestamps </strong> - timestamps of x and y recordings.<br>
-<strong> Onset </strong> - time of onset 
+<strong> Onset </strong> - time of onset.<br>
 <strong> onsetPos </strong> - x and y of mouse at stimulus onset (== mousePathX(1))
 
 
