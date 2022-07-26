@@ -56,6 +56,7 @@ for iBlock = blocks
 
     %% Practice Trials
  practiceMatrix = runBaselineReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
+practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
 
  % Tell participant that practice trials are over. 
     DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
@@ -67,11 +68,11 @@ for iBlock = blocks
     %% Experimental Trials.
  trialMatrix = createSingleTrials(coherence,0,trialsPerCondition/4);
  trialMatrix = runBaselineReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
-
+trialMatrix.Block = repmat(iBlock,height(trialMatrix),1);
+    
 
     % Append the sequence...
     data.trialSequence = [data.trialSequence; practiceMatrix; trialMatrix];
-    data.trialSequence.Block = repmat(iBlock,height(data.trialSequence),1);
     save(sprintf('Baseline_%s.mat',filename), '-struct','data')
 
     % If last block, say thank you!

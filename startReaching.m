@@ -56,7 +56,8 @@ for iBlock = blocks
 
     %% Practice Trials
  practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
- 
+ practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
+
  % Tell participant that practice trials are over. 
     DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
     DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);
@@ -67,11 +68,11 @@ for iBlock = blocks
     %% Experimental Trials.
  trialMatrix = createFlankerTrials(coherence,0,trialsPerCondition/4);
  trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
+trialMatrix.Block = repmat(iBlock,height(trialMatrix),1);
 
 
     % Append the sequence...
     data.trialSequence = [data.trialSequence; practiceMatrix; trialMatrix];
-    data.trialSequence.Block = repmat(iBlock,height(data.trialSequence),1);
     save(sprintf('Flanker_%s.mat',filename), '-struct','data')
 
     % If last block, say thank you!
