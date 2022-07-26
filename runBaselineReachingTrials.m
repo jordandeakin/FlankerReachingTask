@@ -1,4 +1,4 @@
-function trialMat = runReachingTrials(w,display,trialMat,startBox,leftBox,rightBox,rdkCent)
+function trialMat = runBaselineReachingTrials(w,display,trialMat,startBox,leftBox,rightBox,rdkCent)
 
 
 % Trial Loop
@@ -7,8 +7,7 @@ for iTrial = 1:height(trialMat)
     responseMade = false;
     % Trial Parameters
     targetDir = trialMat.TargetDir(iTrial);
-     flankerDir = trialMat.FlankerDir(iTrial);
-    coherence = trialMat.Coherence(iTrial);
+     coherence = trialMat.Coherence(iTrial);
 
     inBox = false;
     startTrial = false;
@@ -76,17 +75,11 @@ for iTrial = 1:height(trialMat)
 
     % Create RDK objects.
     target = rdk('display',display,'nDots',50,'coherence',coherence,'direction',targetDir,'speed',3,'centre',[w.Xrect, rdkCent],'lifetime',.5*w.frame_rate,'itemApertureSize',3);
-      leftFlank = rdk('display',display,'nDots',50,'coherence',coherence,'direction',flankerDir,'speed',3,'centre',[w.Xrect-300; rdkCent],'lifetime',.5*w.frame_rate,'itemApertureSize',3);
-      rightFlank = rdk('display',display,'nDots',50,'coherence',coherence,'direction',flankerDir,'speed',3,'centre',[w.Xrect+300; rdkCent],'lifetime',.5*w.frame_rate,'itemApertureSize',3);
-
-
+    
 
 
     % Initialise dot postitions.
-
     Screen('DrawDots', w.ptr, [target.dotX;target.dotY],2,[255 255 255],[],1);
-     Screen('DrawDots', w.ptr, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
-     Screen('DrawDots', w.ptr, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
     Screen('FrameRect', w.ptr, [80 80 80], leftBox);
     Screen('FrameRect', w.ptr, [80 80 80], rightBox);
     Screen('FillOval', w.ptr,[255 0 0], [mouseX-5,mouseY-5,mouseX+5,mouseY+5]);
@@ -104,6 +97,7 @@ for iTrial = 1:height(trialMat)
       [mouseXF(1),mouseYF(1)] = GetMouse(w.ptr);
  trialMat.onsetPos(iTrial,:) = [mouseXF(1),mouseYF(1)];
  timestamps(1) = vbl;
+tooSlow = 0;
 
     iFrame = 1;
 
@@ -127,19 +121,10 @@ for iTrial = 1:height(trialMat)
         checkIfOut(target); % check if any dots are outside the aperture.
         checkIfDead(target); % check if any dots are dead.
 
-           moveDots(leftFlank);
-            checkIfOut(leftFlank);
-            checkIfDead(leftFlank);
-
-           moveDots(rightFlank);
-           checkIfOut(rightFlank);
-           checkIfDead(rightFlank);
-
+         
         % Redraw dots in new locations and stylus dot.
         Screen('DrawDots', w.ptr, [target.dotX;target.dotY],2,[255 255 255],[],1);
-          Screen('DrawDots', w.ptr, [leftFlank.dotX;leftFlank.dotY],2,[255 255 255],[],1);
-          Screen('DrawDots', w.ptr, [rightFlank.dotX;rightFlank.dotY],2,[255 255 255],[],1);
-            Screen('FrameRect', w.ptr, [80 80 80], leftBox);
+              Screen('FrameRect', w.ptr, [80 80 80], leftBox);
         Screen('FrameRect', w.ptr, [80 80 80], rightBox);
         Screen('FillOval', w.ptr,[255 0 0], [mouseXF(iFrame)-5,mouseYF(iFrame)-5,mouseXF(iFrame)+5,mouseYF(iFrame)+5]);
 
@@ -148,11 +133,7 @@ for iTrial = 1:height(trialMat)
 
 
         if currTime - stimulusOnset > 2
-            DrawFormattedText(w.ptr,'Too Slow!','center',rdkCent,[255 255 255],100,[],[],2)
-            Screen('Flip',w.ptr)
-            choice = 0;
-            WaitSecs(.5)
-            break
+           tooSlow = 1;
         end
 
         % Save RT and stylus path.
@@ -175,6 +156,8 @@ for iTrial = 1:height(trialMat)
             end
         end
 
+  
+
         % If in right box..
         if inRight(mouseXF(iFrame),mouseYF(iFrame),rightBox)
             timeOfResponse = GetSecs;
@@ -188,15 +171,6 @@ for iTrial = 1:height(trialMat)
 
         end
         %  responseMade
-    end
-
-
-    % Show feedback in practice trials.
-    if trialMat.Practice(iTrial) == 1
-        showFeedback(trialMat.Acc(iTrial));
-        % DrawFormattedText2(showFeedback(trialMat.Acc(iTrial)),'win',w.ptr,'sx','center','sy','center','xalign','center');
-        % Screen('Flip',w.ptr);
-        % WaitSecs(.5);
     end
 
 
@@ -250,6 +224,25 @@ if responseMade
     end
 
 
+      % Show too Slow
+        if tooSlow
+               DrawFormattedText(w.ptr,'Your previous response was too slow!','center',rdkCent,[255 255 255],100,[],[],2)
+            Screen('Flip',w.ptr)
+            choice = 0;
+            WaitSecs(.5);
+            
+        end
+
+            % Show feedback in practice trials.
+    if trialMat.Practice(iTrial) == 1
+        showFeedback(trialMat.Acc(iTrial));
+        % DrawFormattedText2(showFeedback(trialMat.Acc(iTrial)),'win',w.ptr,'sx','center','sy','center','xalign','center');
+        % Screen('Flip',w.ptr);
+        % WaitSecs(.5);
+    end
+
+        
+
 end
 
 
@@ -260,6 +253,7 @@ end
 
 
     % Add stylus path to trial matrix.
+    trialMat.tooSlow(iTrial) = tooSlow;
     trialMat.MousePathX(iTrial) = {mousePath.X};
     trialMat.MousePathY(iTrial) = {mousePath.Y};
     trialMat.timestamps(iTrial) = {mousePath.time};
@@ -268,11 +262,8 @@ end
 
 recodedDir(trialMat.TargetDir == -67.5) = {'right'};
 recodedDir(trialMat.TargetDir == 67.5) = {'left'};
-recodedFlankerDir(trialMat.FlankerDir == -67.5) = {'right'};
-recodedFlankerDir(trialMat.FlankerDir == 67.5) = {'left'};
 
 trialMat.TargetDir = recodedDir';
-trialMat.FlankerDir = recodedFlankerDir';
 
 
 

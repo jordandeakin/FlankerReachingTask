@@ -1,4 +1,4 @@
-function startReaching(spatialArrangement,nBlock)
+function startBaseline(spatialArrangement,nBlock)
 KbName('UnifyKeyNames');
 
 % Initialises the Screen and FileName
@@ -27,7 +27,7 @@ end
 
 
 %% Show Instructions
-ReachingInstructions(w,leftBox,rightBox);
+BaselineInstructions(w,leftBox,rightBox);
 data.trialSequence = [];
 trialsPerCondition = 32;
 
@@ -41,13 +41,13 @@ for iBlock = 1:nBlock
     if iBlock == 1
         % If it is the first block, the amount of practice trials are
         % doubled.
-         practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/2); 
+         practiceMatrix = createSingleTrials(coherence,1,trialsPerCondition/2); 
         DrawFormattedText(w.ptr,'We will first do some practice trials.\n\n','center','center',[255 255 255],100,[],[],2);
         DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
         KbStrokeWait;
     else
-         practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/4);
+         practiceMatrix = createSingleTrials(coherence,1,trialsPerCondition/4);
         DrawFormattedText(w.ptr,'We will do some more practice trials.\n\n','center','center',[255 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
@@ -55,7 +55,7 @@ for iBlock = 1:nBlock
     end
 
     %% Practice Trials
- practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
+ practiceMatrix = runBaselineReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
  data.trialSequence = [data.trialSequence; practiceMatrix];
 
  % Tell participant that practice trials are over. 
@@ -66,14 +66,14 @@ for iBlock = 1:nBlock
 
 
     %% Experimental Trials.
- trialMatrix = createFlankerTrials(coherence,0,trialsPerCondition/4);
- trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
+ trialMatrix = createSingleTrials(coherence,0,trialsPerCondition/4);
+ trialMatrix = runBaselineReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
  data.trialSequence = [data.trialSequence; trialMatrix];
 
 
     % Append the sequence...
     data.trialSequence = [data.trialSequence; practiceMatrix; trialMatrix];
-    save(sprintf('Flanker_%s.mat',filename), '-struct','data')
+    save(sprintf('Baseline_%s.mat',filename), '-struct','data')
 
     % If last block, say thank you!
     if iBlock == 4
@@ -85,3 +85,4 @@ end
 
 % Close the Psychtoolbox Window.
 sca
+
