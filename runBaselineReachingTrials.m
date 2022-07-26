@@ -132,7 +132,7 @@ tooSlow = 0;
         currTime = GetSecs();
 
 
-        if currTime - stimulusOnset > 2
+        if currTime - stimulusOnset > 1.5
            tooSlow = 1;
         end
 
@@ -173,11 +173,6 @@ tooSlow = 0;
         %  responseMade
     end
 
-
-    % Show a break every 32 trials.
-    if mod(iTrial,32) == 0
-        breakScreen(w);
-    end
 
 if responseMade
     waited = false;
@@ -224,6 +219,8 @@ if responseMade
     end
 
 
+        trialMat.waited(iTrial) = waited;
+
       % Show too Slow
         if tooSlow
                DrawFormattedText(w.ptr,'Your previous response was too slow!','center',rdkCent,[255 255 255],100,[],[],2)
@@ -242,7 +239,11 @@ if responseMade
     end
 
         
-
+    % Show a break every 32 trials.
+    if mod(iTrial,32) == 0
+        breakScreen(w);
+    end
+    
 end
 
 
@@ -268,6 +269,13 @@ trialMat.TargetDir = recodedDir';
 
 
 
+
+    function showFeedback(acc)
+        if acc == 0
+            beep2
+        end
+    end
+
     function breakScreen(w)
 
         DrawFormattedText(w.ptr,'Time for a break!\n\nThis break lasts 60 seconds and cannot be skipped!','center','center',[255 255 255],100,[],[],2);
@@ -282,14 +290,6 @@ trialMat.TargetDir = recodedDir';
     end
 
 
-
-
-
-    function showFeedback(acc)
-        if acc == 0
-            beep2
-        end
-    end
 
     function beep2
         % Play a sine wave

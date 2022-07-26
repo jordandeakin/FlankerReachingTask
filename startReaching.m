@@ -41,7 +41,7 @@ for iBlock = 1:nBlock
     if iBlock == 1
         % If it is the first block, the amount of practice trials are
         % doubled.
-         practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/2); 
+         practiceMatrix = [createFlankerTrials(coherence,1,trialsPerCondition/4); createFlankerTrials(coherence,1,trialsPerCondition/4)];
         DrawFormattedText(w.ptr,'We will first do some practice trials.\n\n','center','center',[255 255 255],100,[],[],2);
         DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
@@ -56,8 +56,7 @@ for iBlock = 1:nBlock
 
     %% Practice Trials
  practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
- data.trialSequence = [data.trialSequence; practiceMatrix];
-
+ 
  % Tell participant that practice trials are over. 
     DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
     DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);
@@ -68,7 +67,6 @@ for iBlock = 1:nBlock
     %% Experimental Trials.
  trialMatrix = createFlankerTrials(coherence,0,trialsPerCondition/4);
  trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
- data.trialSequence = [data.trialSequence; trialMatrix];
 
 
     % Append the sequence...
