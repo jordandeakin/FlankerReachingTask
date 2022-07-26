@@ -41,13 +41,13 @@ for iBlock = blocks
     if iBlock == 1
         % If it is the first block, the amount of practice trials are
         % doubled.
-         practiceMatrix = [createFlankerTrials(coherence,1,trialsPerCondition/4); createFlankerTrials(coherence,1,trialsPerCondition/4)];
+        practiceMatrix = [createFlankerTrials(coherence,1,trialsPerCondition/4); createFlankerTrials(coherence,1,trialsPerCondition/4)];
         DrawFormattedText(w.ptr,'We will first do some practice trials.\n\n','center','center',[255 255 255],100,[],[],2);
         DrawFormattedText(w.ptr,'Press space to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
         KbStrokeWait;
     else
-         practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/4);
+        practiceMatrix = createFlankerTrials(coherence,1,trialsPerCondition/4);
         DrawFormattedText(w.ptr,'We will do some more practice trials.\n\n','center','center',[255 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         DrawFormattedText(w.ptr,'Press space to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);%'baseColor',[255 255 255]);
         Screen('Flip',w.ptr);
@@ -55,10 +55,10 @@ for iBlock = blocks
     end
 
     %% Practice Trials
- practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
- practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
+    practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
+    practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
 
- % Tell participant that practice trials are over. 
+    % Tell participant that practice trials are over.
     DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
     DrawFormattedText(w.ptr,'Press space to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);
     Screen('Flip',w.ptr);
@@ -66,9 +66,9 @@ for iBlock = blocks
 
 
     %% Experimental Trials.
- trialMatrix = createFlankerTrials(coherence,0,trialsPerCondition/4);
- trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
-trialMatrix.Block = repmat(iBlock,height(trialMatrix),1);
+    trialMatrix = createFlankerTrials(coherence,0,trialsPerCondition/4);
+    trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
+    trialMatrix.Block = repmat(iBlock,height(trialMatrix),1);
 
 
     % Append the sequence...
