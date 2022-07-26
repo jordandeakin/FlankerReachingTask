@@ -147,7 +147,7 @@ tooSlow = 0;
         currTime = GetSecs();
 
 
-        if currTime - stimulusOnset > 2
+        if currTime - stimulusOnset > 1.5
            tooSlow = 1;
         end
 

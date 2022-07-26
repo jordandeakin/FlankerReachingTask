@@ -1,4 +1,4 @@
-function startBaseline(spatialArrangement,nBlock)
+function startBaseline(spatialArrangement,blocks)
 KbName('UnifyKeyNames');
 
 % Initialises the Screen and FileName
@@ -36,7 +36,7 @@ trialsPerCondition = 32;
 % Full trial sequence is 4 blocks. The sequence is saved after each block.
 % In the event of crashes, experimenter can rerun this code with different
 % number of blocks.
-for iBlock = 1:nBlock
+for iBlock = blocks
 
     if iBlock == 1
         % If it is the first block, the amount of practice trials are
@@ -71,6 +71,7 @@ for iBlock = 1:nBlock
 
     % Append the sequence...
     data.trialSequence = [data.trialSequence; practiceMatrix; trialMatrix];
+    data.trialSequence.Block = repmat(iBlock,height(data.trialSequence),1);
     save(sprintf('Baseline_%s.mat',filename), '-struct','data')
 
     % If last block, say thank you!
