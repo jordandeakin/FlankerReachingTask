@@ -76,8 +76,8 @@ classdef rdk < handle
         
         function moveDots(obj)
             
-            obj.dotX = obj.dotX + sin(obj.direction) .* obj.speed;
-            obj.dotY = obj.dotY + cos(obj.direction) .* -obj.speed;
+            obj.dotX = obj.dotX + cosd(obj.direction) .* obj.speed;
+            obj.dotY = obj.dotY + sind(obj.direction) .* -obj.speed;
             obj.age = obj.age + 1;
             
         end
