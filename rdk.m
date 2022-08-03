@@ -66,21 +66,23 @@ classdef rdk < handle
             obj.dotY = obj.centre(2) + r .* cos(theta);
             obj.age = round(randi(round(obj.lifetime),1,obj.nDots));
             
-            obj.direction = randsample(0:360,obj.nDots);
+            obj.direction = randsample(deg2rad(1:360),obj.nDots);
             nCoherent = round(obj.nDots*(obj.coherence/100));
             coherentDots = randsample(1:obj.nDots,nCoherent);
-            obj.direction(coherentDots) = direction;
+            obj.direction(coherentDots) = deg2rad(direction);
         end
         
         
         
         function moveDots(obj)
             
-            obj.dotX = obj.dotX + cosd(obj.direction) .* obj.speed;
-            obj.dotY = obj.dotY + sind(obj.direction) .* -obj.speed;
+            obj.dotX = obj.dotX + cos(obj.direction) .* obj.speed;
+            obj.dotY = obj.dotY + -sin(obj.direction) .* obj.speed;
             obj.age = obj.age + 1;
             
         end
+
+
         
         function checkIfDead(obj)
             

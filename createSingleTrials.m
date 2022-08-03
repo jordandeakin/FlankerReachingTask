@@ -17,8 +17,8 @@ trialMat = array2table(trialMat);
 trialMat.Properties.VariableNames = ["Coherence","Practice","TargetDir"];
 Trial = [1:height(trialMat)]';
 trialMat = addvars(trialMat,Trial,'Before','Coherence');
-trialMat.TargetDir(trialMat.TargetDir == 1) = -67.5;
-trialMat.TargetDir(trialMat.TargetDir == 2) = 67.5;
+trialMat.TargetDir(trialMat.TargetDir == 1) = 0;
+trialMat.TargetDir(trialMat.TargetDir == 2) = 180;
 
 if practice == 1
     out = trialMat;

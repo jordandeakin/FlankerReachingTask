@@ -10,14 +10,14 @@ c = clock;
         
 
 Screen('TextSize',w.ptr,18);
-DrawFormattedText(w.ptr,sprintf('%s\n\n\n In this task, you will see a circular field of moving dots known as a random-dot kinematogram (RDKS).',welcome),'center','center',[255 255 255],40,[],[],2);
+DrawFormattedText(w.ptr,sprintf('%s\n\n\n In this task, you will see a circular field of moving dots known as a random-dot kinematogram (RDK).',welcome),'center','center',[255 255 255],40,[],[],2);
 DrawFormattedText(w.ptr,'Press space to continue','center',w.Yrect+300,[0 255 255],100,[],[],2);
 Screen('Flip',w.ptr);
 Screen('TextSize',w.ptr,18);
 KbPressWait;
 
 
-instructionsText = strcat('Within the RDK, some of the dots move coherently (either leftwards or rightwards), while the rest move randomly.',...
+instructionsText = strcat('Within the RDK, some of the dots move coherently to create a smooth motion signal, while the rest move randomly.',...
     '\n\nThe task is to report the direction of motion in the RDK\n  (left or right).');
 
 

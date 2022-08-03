@@ -1,4 +1,4 @@
-function trialMat = runBaselineReachingTrials(w,display,trialMat,startBox,leftBox,rightBox,rdkCent)
+function trialMat = runBaselineReachingTrials(w,display,trialMat,startBox,leftBox,rightBox,rdkCent,iBlock)
 
 
 % Trial Loop
@@ -46,7 +46,6 @@ for iTrial = 1:height(trialMat)
 
                         [mouseX,mouseY,~] = GetMouse(w.ptr);
                         inBox = inStart(mouseX,mouseY,startBox);
-
                         DrawFormattedText(w.ptr,'+','center',rdkCent,[255 255 255],100,[],[],2);
                         Screen('FrameRect', w.ptr, [255 165 0]*.75, startBox);
                         Screen('Flip',w.ptr);
@@ -149,7 +148,7 @@ tooSlow = 0;
             timeOfResponse = GetSecs;
             choice = 1;
             responseMade = true;
-            if targetDir > 0
+            if targetDir == 180
                 trialMat.Acc(iTrial) = 1;
             else
                 trialMat.Acc(iTrial) = 0;
@@ -163,7 +162,7 @@ tooSlow = 0;
             timeOfResponse = GetSecs;
             choice = 2;
             responseMade = true;
-            if targetDir < 0
+            if targetDir == 0
                 trialMat.Acc(iTrial) = 1;
             else
                 trialMat.Acc(iTrial) = 0;
@@ -241,7 +240,7 @@ if responseMade
         
     % Show a break every 32 trials.
     if mod(iTrial,32) == 0
-        breakScreen(w);
+        breakScreen(w,iBlock);
     end
     
 end
@@ -261,8 +260,8 @@ end
 
 end
 
-recodedDir(trialMat.TargetDir == -67.5) = {'right'};
-recodedDir(trialMat.TargetDir == 67.5) = {'left'};
+recodedDir(trialMat.TargetDir == 0) = {'right'};
+recodedDir(trialMat.TargetDir == 180) = {'left'};
 
 trialMat.TargetDir = recodedDir';
 
@@ -276,11 +275,11 @@ trialMat.TargetDir = recodedDir';
         end
     end
 
-    function breakScreen(w)
+    function breakScreen(w,iBlock)
 
-        DrawFormattedText(w.ptr,'Time for a break!\n\nThis break lasts 60 seconds and cannot be skipped!','center','center',[255 255 255],100,[],[],2);
+        DrawFormattedText(w.ptr,sprintf('Time for a Break!\nYou are on Block %d of 4: Well Done so far!\n\n Not tired yet?\n Press space to skip!',iBlock),'center','center',[255 255 255],100,[],[],2);
         Screen('Flip',w.ptr);
-        WaitSecs(60);
+        KbStrokeWait;
 
         DrawFormattedText(w.ptr,'Ready to continue?\n\n','center','center',[255 255 255],100,[],[],2)
         DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);

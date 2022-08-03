@@ -1,4 +1,4 @@
-function trialMat = runReachingTrials(w,display,trialMat,startBox,leftBox,rightBox,rdkCent)
+function trialMat = runReachingTrials(w,display,trialMat,startBox,leftBox,rightBox,rdkCent,iBlock)
 
 
 % Trial Loop
@@ -164,7 +164,7 @@ tooSlow = 0;
             timeOfResponse = GetSecs;
             choice = 1;
             responseMade = true;
-            if targetDir > 0
+            if targetDir == 180
                 trialMat.Acc(iTrial) = 1;
             else
                 trialMat.Acc(iTrial) = 0;
@@ -178,7 +178,7 @@ tooSlow = 0;
             timeOfResponse = GetSecs;
             choice = 2;
             responseMade = true;
-            if targetDir < 0
+            if targetDir == 0
                 trialMat.Acc(iTrial) = 1;
             else
                 trialMat.Acc(iTrial) = 0;
@@ -254,7 +254,7 @@ if responseMade
 
     % Show a break every 32 trials.
     if mod(iTrial,32) == 0
-        breakScreen(w);
+        breakScreen(w,iBlock);
     end
         
 
@@ -275,10 +275,10 @@ end
 
 end
 
-recodedDir(trialMat.TargetDir == -67.5) = {'right'};
-recodedDir(trialMat.TargetDir == 67.5) = {'left'};
-recodedFlankerDir(trialMat.FlankerDir == -67.5) = {'right'};
-recodedFlankerDir(trialMat.FlankerDir == 67.5) = {'left'};
+recodedDir(trialMat.TargetDir == 0) = {'right'};
+recodedDir(trialMat.TargetDir == 180) = {'left'};
+recodedFlankerDir(trialMat.FlankerDir == 0) = {'right'};
+recodedFlankerDir(trialMat.FlankerDir == 180) = {'left'};
 
 trialMat.TargetDir = recodedDir';
 trialMat.FlankerDir = recodedFlankerDir';
@@ -286,11 +286,12 @@ trialMat.FlankerDir = recodedFlankerDir';
 
 
 
-    function breakScreen(w)
 
-        DrawFormattedText(w.ptr,'Time for a break!\n\nThis break lasts 60 seconds and cannot be skipped!','center','center',[255 255 255],100,[],[],2);
+    function breakScreen(w,iBlock)
+
+        DrawFormattedText(w.ptr,sprintf('Time for a Break!\nYou are on Block %d of 4: Well Done so far!\n\n Not tired yet?\n Press space to skip!',iBlock),'center','center',[255 255 255],100,[],[],2);
         Screen('Flip',w.ptr);
-        WaitSecs(60);
+        KbStrokeWait;
 
         DrawFormattedText(w.ptr,'Ready to continue?\n\n','center','center',[255 255 255],100,[],[],2)
         DrawFormattedText(w.ptr,'Press any key to start!','center',w.Yrect+300,[0 255 255],100,[],[],2);
@@ -298,9 +299,6 @@ trialMat.FlankerDir = recodedFlankerDir';
         KbStrokeWait;
 
     end
-
-
-
 
 
     function showFeedback(acc)

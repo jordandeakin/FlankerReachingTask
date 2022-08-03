@@ -20,8 +20,8 @@ if spatialArrangement == 1
     rdkCent = w.Yrect;
 elseif spatialArrangement == 2
     startBox = [w.Xrect-50, w.Yrect+400, w.Xrect+50, w.Yrect+500];
-    leftBox = [w.Xrect-900, w.Yrect-450, w.Xrect-750, w.Yrect-300];
-    rightBox = [w.Xrect+750, w.Yrect-450, w.Xrect+900, w.Yrect-300];
+    leftBox = [w.Xrect-800, w.Yrect-450, w.Xrect-650, w.Yrect-300];
+    rightBox = [w.Xrect+650, w.Yrect-450, w.Xrect+800, w.Yrect-300];
     rdkCent = w.Yrect - 400;
 end
 
@@ -37,6 +37,11 @@ trialsPerCondition = 32;
 % In the event of crashes, experimenter can rerun this code with different
 % number of blocks.
 for iBlock = blocks
+
+
+
+
+
 
     if iBlock == 1
         % If it is the first block, the amount of practice trials are
@@ -55,8 +60,8 @@ for iBlock = blocks
     end
 
     %% Practice Trials
-    practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
-    practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
+        practiceMatrix = runReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent,iBlock);
+     practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
 
     % Tell participant that practice trials are over.
     DrawFormattedText(w.ptr,'That is the end of the practice trials.\n\n','center','center',[255 255 255],100,[],[],2)
@@ -67,7 +72,7 @@ for iBlock = blocks
 
     %% Experimental Trials.
     trialMatrix = createFlankerTrials(coherence,0,trialsPerCondition/4);
-    trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
+    trialMatrix = runReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent,iBlock);
     trialMatrix.Block = repmat(iBlock,height(trialMatrix),1);
 
 

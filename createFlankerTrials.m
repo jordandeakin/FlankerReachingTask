@@ -16,12 +16,14 @@ trialMat = array2table(trialMat);
 trialMat.Properties.VariableNames = ["Coherence","Practice","TargetDir","Congruency"];
 Trial = [1:height(trialMat)]';
 trialMat = addvars(trialMat,Trial,'Before','Coherence');
-trialMat.TargetDir(trialMat.TargetDir == 1) = -67.5;
-trialMat.TargetDir(trialMat.TargetDir == 2) = 67.5;
+trialMat.TargetDir(trialMat.TargetDir == 1) = 0;
+trialMat.TargetDir(trialMat.TargetDir == 2) = 180;
 
 
 trialMat.FlankerDir(trialMat.Congruency == 1) = trialMat.TargetDir(trialMat.Congruency == 1);
-trialMat.FlankerDir(trialMat.Congruency == 2) = -trialMat.TargetDir(trialMat.Congruency == 2);
+trialMat.FlankerDir(trialMat.Congruency == 2 & trialMat.TargetDir == 180) = 0;
+trialMat.FlankerDir(trialMat.Congruency == 2 & trialMat.TargetDir == 0) = 180;
+
 
 if practice == 1
     out = trialMat;

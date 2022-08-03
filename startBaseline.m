@@ -20,8 +20,8 @@ if spatialArrangement == 1
     rdkCent = w.Yrect;
 elseif spatialArrangement == 2
     startBox = [w.Xrect-50, w.Yrect+400, w.Xrect+50, w.Yrect+500];
-    leftBox = [w.Xrect-900, w.Yrect-450, w.Xrect-750, w.Yrect-300];
-    rightBox = [w.Xrect+750, w.Yrect-450, w.Xrect+900, w.Yrect-300];
+    leftBox = [w.Xrect-800, w.Yrect-450, w.Xrect-650, w.Yrect-300];
+    rightBox = [w.Xrect+650, w.Yrect-450, w.Xrect+800, w.Yrect-300];
     rdkCent = w.Yrect - 400;
 end
 
@@ -55,7 +55,7 @@ for iBlock = blocks
     end
 
     %% Practice Trials
- practiceMatrix = runBaselineReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent);
+ practiceMatrix = runBaselineReachingTrials(w,display,practiceMatrix,startBox,leftBox,rightBox,rdkCent,iBlock);
 practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
 
  % Tell participant that practice trials are over. 
@@ -67,7 +67,7 @@ practiceMatrix.Block = repmat(iBlock,height(practiceMatrix),1);
 
     %% Experimental Trials.
  trialMatrix = createSingleTrials(coherence,0,trialsPerCondition/4);
- trialMatrix = runBaselineReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent);
+ trialMatrix = runBaselineReachingTrials(w,display,trialMatrix,startBox,leftBox,rightBox,rdkCent,iBlock);
 trialMatrix.Block = repmat(iBlock,height(trialMatrix),1);
     
 

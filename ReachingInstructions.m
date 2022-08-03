@@ -10,15 +10,15 @@ c = clock;
         
 
 Screen('TextSize',w.ptr,18);
-DrawFormattedText(w.ptr,sprintf('%s\n\n\n In this task, you will see circular fields of moving dots known as random-dot kinematograms (RDKS).',welcome),'center','center',[255 255 255],40,[],[],2);
+DrawFormattedText(w.ptr,sprintf('%s\n\n\n In this task, you will see three circular fields of moving dots known as random-dot kinematograms (RDKs).',welcome),'center','center',[255 255 255],40,[],[],2);
 DrawFormattedText(w.ptr,'Press space to continue','center',w.Yrect+300,[0 255 255],100,[],[],2);
 Screen('Flip',w.ptr);
 Screen('TextSize',w.ptr,18);
 KbPressWait;
 
 
-instructionsText = strcat('In each RDK, some of the dots move coherently (either leftwards or rightwards), while the rest move randomly.',...
-    '\n\nThe task is to report the direction of motion in the CENTRE RDK\n  (left or right).');
+instructionsText = strcat('In each RDK, some of the dots move coherently to create a smooth motion signal, while the rest move randomly.',...
+    '\n\nThe task is to report the direction of motion in the CENTER RDK\n  (left or right).');
 
 
 DrawFormattedText(w.ptr,instructionsText,'center','center',[255 255 255],100,[],[],2)%'sx','center','sy','center','xalign','center','yalign','center','xlayout','center','wrapat',100);%'baseColor',[255 255 255]);
