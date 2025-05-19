@@ -1,6 +1,6 @@
 function startReaching(spatialArrangement,blocks)
 KbName('UnifyKeyNames');
-
+RestrictKeysForKbCheck([])
 % Initialises the Screen and FileName
 [data, w, filename, display] = initialiseReaching();
 
