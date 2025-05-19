@@ -28,10 +28,10 @@ Saves a .mat file to the current folder. This file contains a data struct with f
 ## How to Run
 ```matlab
 % For Arrangement 1
-startReaching(1)
+startReaching(1, 1:4)
 
 % For Arrangement 2
-startReaching(2)
+startReaching(2, 1:4)
 ```
 
 ## Spatial Arrangement Options
